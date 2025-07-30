@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وصفاتي</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <h1>وصفات أم وليد الجزائرية</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">الرئيسية</a>
+                    <a href="recipes.html">الوصفات</a>
+                    <a href="add-recipe.html">أضف وصفة</a>
+                    <a href="favorites.html">المفضلة</a>
+                    <a href="my-recipes.html" class="active">وصفاتي</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- My Recipes Section -->
+    <section class="my-recipes">
+        <div class="container">
+            <h2>وصفاتي الخاصة</h2>
+            <div id="myRecipesList" class="recipes-list"></div>
+            <p id="noMyRecipesMsg">لم تقم بإضافة أي وصفة بعد.</p>
+        </div>
+    </section>
+
+    <script src="my-recipes.js"></script>
+</body>
+</html>

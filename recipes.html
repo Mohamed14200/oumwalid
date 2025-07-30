@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جميع الوصفات - وصفات أم وليد الجزائرية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <h1>وصفات أم وليد الجزائرية</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">الرئيسية</a>
+                    <a href="recipes.html" class="active">الوصفات</a>
+                    <a href="add-recipe.html">أضف وصفة</a>
+                    <a href="favorites.html">المفضلة</a>
+                    <a href="my-recipes.html">وصفاتي</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Recipes Page -->
+    <section class="recipes-page">
+        <div class="container">
+            <div class="page-header">
+                <h2>جميع الوصفات</h2>
+                <p>اكتشف مجموعة متنوعة من الوصفات الجزائرية التقليدية</p>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="search-filters">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="ابحث عن وصفة...">
+                    <i class="fas fa-search"></i>
+                </div>
+                
+                <div class="filters">
+                    <select id="categoryFilter">
+                        <option value="all">جميع الأقسام</option>
+                        <option value="أطباق رئيسية">أطباق رئيسية</option>
+                        <option value="حساء وشوربة">حساء وشوربة</option>
+                        <option value="سلطات">سلطات</option>
+                        <option value="حلويات">حلويات</option>
+                        <option value="مشروبات">مشروبات</option>
+                        <option value="مقبلات">مقبلات</option>
+                    </select>
+                    
+                    <select id="sortBy">
+                        <option value="newest">الأحدث أولاً</option>
+                        <option value="oldest">الأقدم أولاً</option>
+                        <option value="easiest">الأسهل أولاً</option>
+                        <option value="hardest">الأصعب أولاً</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Category Quick Filter -->
+            <div class="category-filter">
+                <h3>تصفية حسب القسم</h3>
+                <div class="category-buttons" id="categoryButtons">
+                    <button class="category-btn active" data-category="all">الكل</button>
+                    <button class="category-btn" data-category="أطباق رئيسية">أطباق رئيسية</button>
+                    <button class="category-btn" data-category="حساء وشوربة">حساء وشوربة</button>
+                    <button class="category-btn" data-category="سلطات">سلطات</button>
+                    <button class="category-btn" data-category="حلويات">حلويات</button>
+                    <button class="category-btn" data-category="مشروبات">مشروبات</button>
+                    <button class="category-btn" data-category="مقبلات">مقبلات</button>
+                </div>
+            </div>
+
+            <!-- Results Info -->
+            <div class="results-info">
+                <p id="resultsCount">تم العثور على 0 وصفة</p>
+            </div>
+
+            <!-- Recipes Grid -->
+            <div class="recipes-grid" id="recipesGrid">
+                <!-- Recipes will be loaded here -->
+            </div>
+
+            <!-- User Recipes Section -->
+            <div class="user-recipes-section" id="userRecipesSection" style="display: none;">
+                <div class="section-header">
+                    <h3><i class="fas fa-user"></i> وصفاتي المضافة</h3>
+                    <p>الوصفات التي قمت بإضافتها بنفسك</p>
+                </div>
+                <div class="recipes-grid" id="userRecipesGrid">
+                    <!-- User recipes will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
+                        <h4>وصفات أم وليد</h4>
+                    </div>
+                    <p>أفضل الوصفات الجزائرية التقليدية من مطبخ أم وليد</p>
+                </div>
+                <div class="footer-section">
+                    <h5>روابط سريعة</h5>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="recipes.html">الوصفات</a></li>
+                        <li><a href="add-recipe.html">أضف وصفة</a></li>
+                        <li><a href="favorites.html">المفضلة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h5>تواصل معنا</h5>
+                    <p>شارك معنا وصفاتك الخاصة وتواصل مع مجتمع الطبخ الجزائري</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 وصفات أم وليد الجزائرية. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="recipes.js"></script>
+</body>
+</html>

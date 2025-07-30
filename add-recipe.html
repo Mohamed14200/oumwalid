@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة وصفة - وصفات أم وليد الجزائرية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <h1>وصفات أم وليد الجزائرية</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">الرئيسية</a>
+                    <a href="recipes.html">الوصفات</a>
+                    <a href="add-recipe.html" class="active">أضف وصفة</a>
+                    <a href="favorites.html">المفضلة</a>
+                    <a href="my-recipes.html">وصفاتي</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Add Recipe Form -->
+    <section class="add-recipe">
+        <div class="container">
+            <div class="form-container">
+                <h2>إضافة وصفة جديدة</h2>
+                <p>شارك معنا وصفاتك الخاصة وأضفها لمجموعة وصفات أم وليد</p>
+
+                <form id="recipeForm">
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <h3>المعلومات الأساسية</h3>
+                        <div class="form-group">
+                            <label for="title">عنوان الوصفة *</label>
+                            <input type="text" id="title" name="title" required placeholder="أدخل عنوان الوصفة">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">الوصف</label>
+                            <textarea id="description" name="description" rows="3" placeholder="صف الوصفة باختصار"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category">القسم</label>
+                                <select id="category" name="category" required>
+                                    <option value="">اختر القسم</option>
+                                    <option value="أطباق رئيسية">أطباق رئيسية</option>
+                                    <option value="حساء وشوربة">حساء وشوربة</option>
+                                    <option value="سلطات">سلطات</option>
+                                    <option value="حلويات">حلويات</option>
+                                    <option value="مشروبات">مشروبات</option>
+                                    <option value="مقبلات">مقبلات</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="difficulty">مستوى الصعوبة</label>
+                                <select id="difficulty" name="difficulty" required>
+                                    <option value="">اختر الصعوبة</option>
+                                    <option value="1">1 - سهل جداً</option>
+                                    <option value="2">2 - سهل</option>
+                                    <option value="3">3 - متوسط</option>
+                                    <option value="4">4 - صعب</option>
+                                    <option value="5">5 - صعب جداً</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prepTime">وقت التحضير (دقائق)</label>
+                                <input type="number" id="prepTime" name="prepTime" placeholder="30">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cookTime">وقت الطهي (دقائق)</label>
+                                <input type="number" id="cookTime" name="cookTime" placeholder="60">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="servings">عدد الأشخاص</label>
+                                <input type="number" id="servings" name="servings" placeholder="4">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="youtubeUrl">رابط فيديو يوتيوب <span style="color: #666; font-size: 0.9em;">(اختياري)</span></label>
+                            <input type="url" id="youtubeUrl" name="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+                            <small style="color: #666; font-size: 0.8em;">أضف رابط فيديو يوتيوب لوصفة إن وجد</small>
+                        </div>
+                    </div>
+
+                    <!-- Ingredients -->
+                    <div class="form-section">
+                        <h3>المقادير</h3>
+                        <div id="ingredientsContainer">
+                            <div class="ingredient-row">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <input type="text" name="ingredientName" placeholder="اسم المكون" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="ingredientQuantity" placeholder="الكمية">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="ingredientUnit" placeholder="الوحدة">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn-remove" onclick="removeIngredient(this)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-outline" onclick="addIngredient()">
+                            <i class="fas fa-plus"></i> إضافة مكون
+                        </button>
+                    </div>
+
+                    <!-- Steps -->
+                    <div class="form-section">
+                        <h3>خطوات التحضير</h3>
+                        <div id="stepsContainer">
+                            <div class="step-row">
+                                <div class="step-number">1</div>
+                                <div class="form-group">
+                                    <textarea name="stepContent" rows="2" placeholder="اشرح هذه الخطوة بالتفصيل" required></textarea>
+                                </div>
+                                <button type="button" class="btn-remove" onclick="removeStep(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-outline" onclick="addStep()">
+                            <i class="fas fa-plus"></i> إضافة خطوة
+                        </button>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="form-actions">
+                        <a href="index.html" class="btn-outline">إلغاء</a>
+                        <button type="submit" class="btn">نشر الوصفة</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle"></i>
+                <h3>تم بنجاح!</h3>
+            </div>
+            <p>تمت إضافة الوصفة بنجاح إلى قائمة الوصفات</p>
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal()">حسناً</button>
+                <a href="index.html" class="btn">الرئيسية</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="add-recipe.js"></script>
+</body>
+</html>

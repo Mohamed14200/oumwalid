@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المفضلة - وصفات أم وليد الجزائرية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <h1>وصفات أم وليد الجزائرية</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">الرئيسية</a>
+                    <a href="recipes.html">الوصفات</a>
+                    <a href="add-recipe.html">أضف وصفة</a>
+                    <a href="favorites.html" class="active">المفضلة</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Favorites Page -->
+    <section class="favorites-page">
+        <div class="container">
+            <div class="page-header">
+                <h2>وصفاتي المفضلة</h2>
+                <p id="favoritesCount">0 وصفة في قائمة المفضلة الخاصة بك</p>
+            </div>
+
+            <div class="favorites-actions">
+                <button class="btn-outline" onclick="clearAllFavorites()">
+                    <i class="fas fa-trash"></i> مسح الكل
+                </button>
+                <button class="btn" onclick="shareFavorites()">
+                    <i class="fas fa-share"></i> مشاركة
+                </button>
+            </div>
+
+            <div class="recipes-grid" id="favoritesGrid">
+                <!-- Favorite recipes will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
+                        <h4>وصفات أم وليد</h4>
+                    </div>
+                    <p>أفضل الوصفات الجزائرية التقليدية من مطبخ أم وليد</p>
+                </div>
+                <div class="footer-section">
+                    <h5>روابط سريعة</h5>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="recipes.html">الوصفات</a></li>
+                        <li><a href="add-recipe.html">أضف وصفة</a></li>
+                        <li><a href="favorites.html">المفضلة</a></li>
+                        <li><a href="my-recipes.html">وصفاتي</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h5>تواصل معنا</h5>
+                    <p>شارك معنا وصفاتك الخاصة وتواصل مع مجتمع الطبخ الجزائري</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 وصفات أم وليد الجزائرية. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="favorites.js"></script>
+</body>
+</html>
