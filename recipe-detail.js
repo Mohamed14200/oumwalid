@@ -111,14 +111,22 @@ function displayRecipeDetail() {
                         </div>
                     </div>
                 </div>
-                ${currentRecipe.youtubeUrl ? `
-                <div class="recipe-youtube-section">
-                    <a href="${currentRecipe.youtubeUrl}" target="_blank" class="youtube-link">
-                        <i class="fab fa-youtube"></i>
-                        شاهد فيديو التحضير
-                    </a>
-                </div>
-                ` : ''}
+                ${currentRecipe.youtubeUrl ? (() => {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    let youtubeLink = currentRecipe.youtubeUrl;
+    if (isMobile && youtubeLink.includes('watch?v=')) {
+        const videoId = youtubeLink.split('v=')[1].split('&')[0];
+        youtubeLink = `vnd.youtube://${videoId}`;
+    }
+    return `
+        <div class="recipe-youtube-section">
+            <a href="${youtubeLink}" target="_blank" rel="noopener noreferrer" class="youtube-button">
+                <i class="fab fa-youtube"></i>
+                مشاهدة طريقة التحضير على اليوتيوب
+            </a>
+        </div>
+    `;
+})() : ''}
             </div>
         </div>
         

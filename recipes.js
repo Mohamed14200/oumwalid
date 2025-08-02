@@ -31,7 +31,7 @@ async function loadRecipes() {
         const userRecipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
         
         // Combine all recipes
-        allRecipes = [...defaultRecipes, ...userRecipes];
+        allRecipes = [...defaultRecipes];
         filteredRecipes = [...allRecipes];
         
         displayRecipes();

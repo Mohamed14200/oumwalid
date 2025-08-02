@@ -139,22 +139,17 @@ function handleFormSubmit(e) {
 
 // Save recipe to localStorage
 function saveRecipe(recipe) {
-    // حفظ في userRecipes (الحفظ القديم)
+    // حفظ في userRecipes فقط (تم توحيد التخزين)
     let recipes = JSON.parse(localStorage.getItem('userRecipes')) || [];
     recipes.push(recipe);
     localStorage.setItem('userRecipes', JSON.stringify(recipes));
     
-    // حفظ في myRecipes (الوصفات الخاصة بالمستخدم)
-    let myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-    myRecipes.push(recipe);
-    localStorage.setItem('myRecipes', JSON.stringify(myRecipes));
-    
     // Show success message
     showNotification('تمت إضافة الوصفة بنجاح!', 'success');
     
-    // Redirect to recipes page after 2 seconds
+    // Redirect to my-recipes page after 2 seconds
     setTimeout(() => {
-        window.location.href = 'recipes.html';
+        window.location.href = 'my-recipes.html';
     }, 2000);
 }
 

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>وصفات أم وليد الجزائرية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -27,34 +30,20 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Categories Overlay -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h2>أهلاً بك في عالم الطبخ الجزائري</h2>
-                <p>اكتشف أذكى الوصفات التقليدية الجزائرية من مطبخ أم وليد</p>
-                <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="ابحث عن وصفة...">
-                    <select id="categoryFilter">
-                        <option value="all">جميع الأقسام</option>
-                        <option value="أطباق رئيسية">أطباق رئيسية</option>
-                        <option value="حساء وشوربة">حساء وشوربة</option>
-                        <option value="سلطات">سلطات</option>
-                        <option value="حلويات">حلويات</option>
-                        <option value="مشروبات">مشروبات</option>
-                        <option value="مقبلات">مقبلات</option>
-                    </select>
-                </div>
+                <h2>أهلاً بك في عالم الطبخ </h2>
+                <p>اكتشف أذكى الوصفات  من مطبخ أم وليد</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Categories Section -->
-    <section class="categories">
-        <div class="container">
-            <h3>الأقسام</h3>
-            <div class="categories-grid" id="categoriesGrid">
-                <!-- Categories will be loaded by JavaScript -->
+            
+            <!-- Categories Section Inside Hero -->
+            <div class="categories-overlay">
+                <h3>تصفح حسب الأقسام</h3>
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Categories will be loaded by JavaScript -->
+                </div>
             </div>
         </div>
     </section>
@@ -62,9 +51,13 @@
     <!-- Featured Recipes Section -->
     <section class="recipes">
         <div class="container">
-            <h3>الوصفات المميزة</h3>
-            <div class="recipes-grid" id="recipesGrid">
-                <!-- Recipes will be loaded by JavaScript -->
+            <h3>الوصفات المميزة <a href="recipes.html" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a></h3>
+            <div class="recipes-grid-container">
+                <button class="scroll-btn left" onclick="scrollRecipes(this, -1)"><i class="fas fa-chevron-right"></i></button>
+                <div class="recipes-grid" id="recipesGrid">
+                    <!-- Recipes will be loaded by JavaScript -->
+                </div>
+                <button class="scroll-btn right" onclick="scrollRecipes(this, 1)"><i class="fas fa-chevron-left"></i></button>
             </div>
         </div>
     </section>
@@ -82,6 +75,27 @@
         </div>
     </section>
 
+    <script>
+        // Open search modal
+        const searchBtn = document.getElementById('searchBtn');
+        const searchModal = document.getElementById('searchModal');
+        const closeSearch = document.querySelector('.close-search');
+        
+        searchBtn.addEventListener('click', () => {
+            searchModal.style.display = 'flex';
+        });
+        
+        closeSearch.addEventListener('click', () => {
+            searchModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                searchModal.style.display = 'none';
+            }
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
