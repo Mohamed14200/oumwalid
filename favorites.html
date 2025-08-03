@@ -4,8 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>المفضلة - وصفات أم وليد الجزائرية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        .favorites-actions {
+            display: flex;
+            gap: 10px;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .favorites-actions .btn,
+        .favorites-actions .btn-outline {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            white-space: nowrap;
+            padding: 0.8rem 0.5rem;
+        }
+        .page-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .page-header h2 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        #favoritesCount {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 768px) {
+            .favorites-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .favorites-actions .btn,
+            .favorites-actions .btn-outline {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -27,59 +73,29 @@
     </header>
 
     <!-- Favorites Page -->
-    <section class="favorites-page">
-        <div class="container">
+    <section class="favorites-page" style="padding: 1.5rem 0;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
             <div class="page-header">
-                <h2>وصفاتي المفضلة</h2>
-                <p id="favoritesCount">0 وصفة في قائمة المفضلة الخاصة بك</p>
+                <h2 style="font-family: 'Tajawal', sans-serif; font-size: 2rem; color: #333; margin-bottom: 0.5rem;">وصفاتي المفضلة</h2>
+                <p id="favoritesCount" style="color: #666; margin-bottom: 1.5rem;">0 وصفة في قائمة المفضلة الخاصة بك</p>
             </div>
 
-            <div class="favorites-actions">
-                <button class="btn-outline" onclick="clearAllFavorites()">
+            <div class="favorites-actions" style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center;">
+                <button class="btn-outline" onclick="clearAllFavorites()" style="flex: 1; min-width: 140px; max-width: 200px;">
                     <i class="fas fa-trash"></i> مسح الكل
                 </button>
-                <button class="btn" onclick="shareFavorites()">
+                <button class="btn" onclick="shareFavorites()" style="flex: 1; min-width: 140px; max-width: 200px;">
                     <i class="fas fa-share"></i> مشاركة
                 </button>
             </div>
 
-            <div class="recipes-grid" id="favoritesGrid">
+            <div class="recipes-grid" id="favoritesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
                 <!-- Favorite recipes will be loaded here -->
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="logo">
-                        <i class="fas fa-utensils"></i>
-                        <h4>وصفات أم وليد</h4>
-                    </div>
-                    <p>أفضل الوصفات الجزائرية التقليدية من مطبخ أم وليد</p>
-                </div>
-                <div class="footer-section">
-                    <h5>روابط سريعة</h5>
-                    <ul>
-                        <li><a href="index.html">الرئيسية</a></li>
-                        <li><a href="recipes.html">الوصفات</a></li>
-                        <li><a href="add-recipe.html">أضف وصفة</a></li>
-                        <li><a href="favorites.html">المفضلة</a></li>
-                        <li><a href="my-recipes.html">وصفاتي</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h5>تواصل معنا</h5>
-                    <p>شارك معنا وصفاتك الخاصة وتواصل مع مجتمع الطبخ الجزائري</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 وصفات أم وليد الجزائرية. جميع الحقوق محفوظة.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Removed as per user request -->
 
     <script src="favorites.js"></script>
     <script src="header.js"></script>
