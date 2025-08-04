@@ -1,0 +1,229 @@
+[
+    {
+        "id": "1",
+        "title": "كسكسي بالدجاج والخضروات",
+        "description": "الكسكسي هو الطبق الوطني الجزائري، يقدم مع الدجاج والخضروات الطازجة",
+        "image": "https://picsum.photos/seed/couscous/300/200.jpg",
+        "prepTime": 30,
+        "cookTime": 60,
+        "servings": 6,
+        "difficulty": 3,
+        "category": "أطباق رئيسية",
+        "youtubeUrl": "https://www.youtube.com/watch?v=example1",
+        "ingredients": [
+            { "name": "كسكسي", "quantity": "500", "unit": "غ" },
+            { "name": "دجاج", "quantity": "1", "unit": "كغ" },
+            { "name": "جزر", "quantity": "3", "unit": "حبات" },
+            { "name": "بطاطس", "quantity": "4", "unit": "حبات" },
+            { "name": "كوسا", "quantity": "2", "unit": "حبات" },
+            { "name": "بصل", "quantity": "2", "unit": "حبات" },
+            { "name": "طماطم", "quantity": "4", "unit": "حبات" },
+            { "name": "زيت زيتون", "quantity": "3", "unit": "ملاعق كبيرة" }
+        ],
+        "steps": [
+            "نغسل الكسكسي جيداً وننقعه لمدة 30 دقيقة",
+            "نقطع الدجاج ويقلى مع البصل والبهارات",
+            "نضيف الخضروات المقطعة ونغطيها بالماء",
+            "نترك الخضروات تطهى لمدة 45 دقيقة",
+            "نسلق الكسكسي على بخار الخضروات",
+            "نقدم الكسكسي مع الخضروات والدجاج"
+        ]
+    },
+    {
+        "id": "2",
+        "title": "طاجين الجزائر",
+        "description": "طبق تقليدي جزائري يحتوي على اللحم والبطاطس والجزر",
+        "image": "https://picsum.photos/seed/tajine/300/200.jpg",
+        "prepTime": 20,
+        "cookTime": 90,
+        "servings": 4,
+        "difficulty": 2,
+        "category": "أطباق رئيسية",
+        "youtubeUrl": "https://www.youtube.com/watch?v=example2",
+        "ingredients": [
+            { "name": "لحم", "quantity": "500", "unit": "غ" },
+            { "name": "بطاطس", "quantity": "6", "unit": "حبات" },
+            { "name": "جزر", "quantity": "4", "unit": "حبات" },
+            { "name": "بصل", "quantity": "2", "unit": "حبات" },
+            { "name": "طماطم", "quantity": "3", "unit": "حبات" },
+            { "name": "ثوم", "quantity": "3", "unit": "فصوص" },
+            { "name": "زيتون", "quantity": "1", "unit": "كوب" }
+        ],
+        "steps": [
+            "نقطع اللحم إلى قطع متوسطة",
+            "نقلى اللحم مع البصل والثوم",
+            "نضيف الطماطم المفرومة والبهارات",
+            "نضيف الخضروات المقطعة",
+            "نغطي الطاجين ونتركه على نار هادئة",
+            "نقدم الطاجين ساخناً مع الخبز"
+        ]
+    },
+    {
+        "id": "3",
+        "title": "شربة الشعرية",
+        "description": "حساء جزائري شهير بالشعرية واللحم المفروم",
+        "image": "https://picsum.photos/seed/shurba/300/200.jpg",
+        "prepTime": 15,
+        "cookTime": 45,
+        "servings": 4,
+        "difficulty": 2,
+        "category": "حساء وشوربة",
+        "youtubeUrl": "https://www.youtube.com/watch?v=example3",
+        "ingredients": [
+            { "name": "شعرية", "quantity": "200", "unit": "غ" },
+            { "name": "لحم مفروم", "quantity": "300", "unit": "غ" },
+            { "name": "طماطم", "quantity": "3", "unit": "حبات" },
+            { "name": "بصل", "quantity": "1", "unit": "حبة" },
+            { "name": "جزر", "quantity": "2", "unit": "حبات" },
+            { "name": "كزبرة", "quantity": "1", "unit": "حزمة" },
+            { "name": "ليمون", "quantity": "1", "unit": "حبة" }
+        ],
+        "steps": [
+            "نقلى اللحم المفروم مع البصل",
+            "نضيف الطماطم المفرومة والجزر",
+            "نضيف الماء والبهارات ونتركها تغلي",
+            "نضيف الشعرية ونتركها تطهى",
+            "نضيف الكزبرة المفرومة",
+            "نقدم الشربة ساخنة مع الليمون"
+        ]
+    },
+    {
+        "id": "4",
+        "title": "مقلوبة الزيتون",
+        "description": "سلطة زيتون جزائرية تقليدية مع البهارات العطرية",
+        "image": "https://picsum.photos/seed/olive-salad/300/200.jpg",
+        "prepTime": 25,
+        "cookTime": 0,
+        "servings": 4,
+        "difficulty": 1,
+        "category": "سلطات",
+        "youtubeUrl": "https://www.youtube.com/watch?v=example4",
+        "ingredients": [
+            { "name": "زيتون أسود", "quantity": "2", "unit": "كوب" },
+            { "name": "زيتون أخضر", "quantity": "2", "unit": "كوب" },
+            { "name": "بصل", "quantity": "1", "unit": "حبة" },
+            { "name": "طماطم", "quantity": "2", "unit": "حبات" },
+            { "name": "خيار", "quantity": "1", "unit": "حبة" },
+            { "name": "فلفل أحمر", "quantity": "1", "unit": "حبة" },
+            { "name": "عصير ليمون", "quantity": "3", "unit": "ملاعق" }
+        ],
+        "steps": [
+            "نغسل الزيتون جيداً",
+            "نقطع الخضروات إلى مكعبات صغيرة",
+            "نخلط الزيتون مع الخضروات",
+            "نضيف عصير الليمون وزيت الزيتون",
+            "نضيف البهارات ونخلط جيداً",
+            "نقدم السلطة باردة"
+        ]
+    },
+    {
+        "id": "5",
+        "title": "بقلاوة الجزائرية",
+        "description": "حلوى جزائرية شهيرة بالعجق والمكسرات",
+        "image": "https://picsum.photos/seed/baklawa/300/200.jpg",
+        "prepTime": 45,
+        "cookTime": 30,
+        "servings": 8,
+        "difficulty": 4,
+        "category": "حلويات",
+        "youtubeUrl": "https://www.youtube.com/watch?v=example5",
+        "ingredients": [
+            { "name": "عجينة الفيلو", "quantity": "1", "unit": "عبوة" },
+            { "name": "مكسرات", "quantity": "2", "unit": "كوب" },
+            { "name": "زبدة", "quantity": "200", "unit": "غ" },
+            { "name": "عسل", "quantity": "1", "unit": "كوب" },
+            { "name": "سكر", "quantity": "1", "unit": "كوب" },
+            { "name": "ماء", "quantity": "1", "unit": "كوب" }
+        ],
+        "steps": [
+            "نحضر القطر من السكر والماء وعصير الليمون",
+            "نقطع المكسرات إلى قطع صغيرة",
+            "نفرش طبقة من عجينة الفيلو",
+            "ندهن العجينة بالزبدة المذابة",
+            "نضيف طبقة من المكسرات",
+            "نكرر العملية ثم نخبز في الفرن",
+            "نسكب القطر على البقلاوة بعد الخبز"
+        ]
+    },
+    {
+        "id": "6",
+        "title": "عصير البرتقال الجزائري",
+        "description": "مشروب منعش بالبرتقال الطازج والنعناع",
+        "image": "https://picsum.photos/seed/orange-juice/300/200.jpg",
+        "prepTime": 10,
+        "cookTime": 0,
+        "servings": 2,
+        "difficulty": 1,
+        "category": "مشروبات",
+        "youtubeUrl": "https://www.youtube.com/watch?v=example6",
+        "ingredients": [
+            { "name": "برتقال", "quantity": "4", "unit": "حبات" },
+            { "name": "نعناع", "quantity": "1", "unit": "حزمة" },
+            { "name": "سكر", "quantity": "2", "unit": "ملاعق" },
+            { "name": "ماء بارد", "quantity": "1", "unit": "كوب" }
+        ],
+        "steps": [
+            "نعصر البرتقال الطازج",
+            "نضيف السكر والماء البارد",
+            "نضيف أوراق النعناع الطازجة",
+            "نخلط جيداً",
+            "نضيف الثلج",
+            "نقدم العصير بارداً"
+        ]
+    },
+    {
+        "id": "7",
+        "title": "شكشوكة",
+        "description": "مقبلات جزائرية شهيرة بالبيض والطماطم",
+        "image": "https://picsum.photos/seed/shakshuka/300/200.jpg",
+        "prepTime": 10,
+        "cookTime": 15,
+        "servings": 4,
+        "difficulty": 2,
+        "category": "مقبلات",
+        "youtubeUrl": "https://www.youtube.com/watch?v=example7",
+        "ingredients": [
+            { "name": "بيض", "quantity": "6", "unit": "حبات" },
+            { "name": "طماطم", "quantity": "4", "unit": "حبات" },
+            { "name": "بصل", "quantity": "1", "unit": "حبة" },
+            { "name": "ثوم", "quantity": "2", "unit": "فصوص" },
+            { "name": "فلفل أحمر", "quantity": "1", "unit": "حبة" },
+            { "name": "زيت زيتون", "quantity": "3", "unit": "ملاعق" }
+        ],
+        "steps": [
+            "نقلى البصل والثوم المفروم",
+            "نضيف الطماطم المفرومة والفلفل",
+            "نترك الصلصة تغلي لمدة 10 دقائق",
+            "نكسر البيض فوق الصلصة",
+            "نغطي ونترك البيض يستوي",
+            "نقدم الشكشوكة ساخناً مع الخبز"
+        ]
+    },
+    {
+        "id": "8",
+        "title": "محمر البطاطس",
+        "description": "بطاطس مقلية جزائرية بالبهارات العطرية",
+        "image": "https://picsum.photos/seed/potatoes/300/200.jpg",
+        "prepTime": 15,
+        "cookTime": 25,
+        "servings": 4,
+        "difficulty": 1,
+        "category": "مقبلات",
+        "youtubeUrl": "https://www.youtube.com/watch?v=example8",
+        "ingredients": [
+            { "name": "بطاطس", "quantity": "6", "unit": "حبات" },
+            { "name": "زيت نباتي", "quantity": "كافي", "unit": "للقلي" },
+            { "name": "ملح", "quantity": "1", "unit": "ملعقة صغيرة" },
+            { "name": "بهارات", "quantity": "1", "unit": "ملعقة صغيرة" },
+            { "name": "ثوم", "quantity": "2", "unit": "فصوص" }
+        ],
+        "steps": [
+            "نقشر البطاطس ونقطعها إلى شرائح",
+            "نغسل البطاطس جيداً ونصففها",
+            "نسخن الزيت في المقلاة",
+            "نقلي البطاطس حتى تذهب",
+            "نضيف الملح والبهارات والثوم",
+            "نقدم المحمر ساخناً"
+        ]
+    }
+]

@@ -114,13 +114,22 @@ function displayRecipeDetail() {
                 ${currentRecipe.youtubeUrl ? (() => {
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     let youtubeLink = currentRecipe.youtubeUrl;
-    if (isMobile && youtubeLink.includes('watch?v=')) {
+    let appLink = '';
+    
+    if (youtubeLink.includes('youtube.com/watch?v=')) {
         const videoId = youtubeLink.split('v=')[1].split('&')[0];
-        youtubeLink = `vnd.youtube://${videoId}`;
+        appLink = `vnd.youtube:${videoId}`;
+        youtubeLink = `https://youtu.be/${videoId}`; // Shortened URL for better mobile handling
+    } else if (youtubeLink.includes('youtu.be/')) {
+        const videoId = youtubeLink.split('youtu.be/')[1].split('?')[0];
+        appLink = `vnd.youtube:${videoId}`;
     }
+    
+    const onClickHandler = isMobile ? `onclick="window.location.href='${appLink}'; setTimeout(function(){ window.open('${youtubeLink}', '_blank'); }, 200); return false;"` : '';
+    
     return `
         <div class="recipe-youtube-section">
-            <a href="${youtubeLink}" target="_blank" rel="noopener noreferrer" class="youtube-button">
+            <a href="${youtubeLink}" ${onClickHandler} class="youtube-button">
                 <i class="fab fa-youtube"></i>
                 مشاهدة طريقة التحضير على اليوتيوب
             </a>
