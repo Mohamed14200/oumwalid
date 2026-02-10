@@ -49,7 +49,7 @@ print("تاريخ النشر:", published_at)
 print("صورة مصغرة:", thumbnail)
 
 # === طلب Gemini لتوليد المكونات والخطوات ===
-gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
 prompt_text = f"""
 أريد منك استخراج وصفة طعام من هذا الفيديو:
