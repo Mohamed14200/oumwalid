@@ -54,7 +54,7 @@ print("صورة مصغرة:", thumbnail)
 # =============================
 # طلب Gemini 2.0 Flash
 # =============================
-gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
 prompt = f"""
 استخرج وصفة طبخ من هذا الفيديو:
