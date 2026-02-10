@@ -2,32 +2,25 @@ import os
 import json
 import requests
 from google.oauth2 import service_account
-from google.auth.transport.requests import Request
+import google.auth.transport.requests
 
-# ===============================
-# إعداد Service Account (Gemini)
-# ===============================
-SERVICE_ACCOUNT_FILE = "gemini-service-account.json"
-PROJECT_ID = "oumwalid-recipes"
-LOCATION = "us-central1"
-MODEL = "gemini-2.0-flash"
+# =========================
+# الإعدادات
+# =========================
 
-SCOPES = ["https://www.googleapis.com/auth/cloud-platform"]
-
-credentials = service_account.Credentials.from_service_account_file(
-    SERVICE_ACCOUNT_FILE, scopes=SCOPES
-)
-credentials.refresh(Request())
-
-ACCESS_TOKEN = credentials.token
-
-# ===============================
-# إعداد YouTube API
-# ===============================
-YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
 CHANNEL_ID = "UCVXD2kNki3rfLMhF8uNIcBQ"
 
+YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
+
+# ملف Service Account (موجود في المستودع مؤقتًا)
+SERVICE_ACCOUNT_FILE = "gemini-service-account.json"
+
+# =========================
+# 1️⃣ جلب آخر فيديو من YouTube
+# =========================
+
 youtube_url = "https://www.googleapis.com/youtube/v3/search"
+
 youtube_params = {
     "key": YOUTUBE_API_KEY,
     "channelId": CHANNEL_ID,
@@ -37,15 +30,12 @@ youtube_params = {
     "type": "video"
 }
 
-# ===============================
-# جلب آخر فيديو
-# ===============================
 response = requests.get(youtube_url, params=youtube_params)
 data = response.json()
 
 if "items" not in data or len(data["items"]) == 0:
     print("❌ لم يتم العثور على فيديوهات")
-    exit()
+    exit(1)
 
 video = data["items"][0]
 video_id = video["id"]["videoId"]
@@ -56,43 +46,67 @@ thumbnail = video["snippet"]["thumbnails"]["high"]["url"]
 print("✅ آخر فيديو:")
 print("العنوان:", title)
 print("الرابط:", f"https://www.youtube.com/watch?v={video_id}")
+print("تاريخ النشر:", published_at)
+print("صورة مصغرة:", thumbnail)
 
-# ===============================
-# طلب Gemini عبر Vertex AI
-# ===============================
-gemini_url = (
-    f"https://{LOCATION}-aiplatform.googleapis.com/v1/"
-    f"projects/{PROJECT_ID}/locations/{LOCATION}/"
-    f"publishers/google/models/{MODEL}:generateContent"
+# =========================
+# 2️⃣ المصادقة مع Gemini (Service Account)
+# =========================
+
+SCOPES = ["https://www.googleapis.com/auth/cloud-platform"]
+
+credentials = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE,
+    scopes=SCOPES
 )
 
-prompt_text = f"""
-أريد منك استخراج وصفة طعام من هذا الفيديو:
-العنوان: {title}
-الرابط: https://www.youtube.com/watch?v={video_id}
+auth_req = google.auth.transport.requests.Request()
+credentials.refresh(auth_req)
 
-رجاءً أعطني النتائج بصيغة JSON فقط دون أي شرح:
+access_token = credentials.token
+
+# =========================
+# 3️⃣ طلب Gemini 2.0 Flash
+# =========================
+
+gemini_url = (
+    "https://generativelanguage.googleapis.com/v1beta/"
+    "models/gemini-2.0-flash:generateContent"
+)
+
+prompt = f"""
+أريد منك استخراج وصفة طبخ من فيديو يوتيوب.
+
+عنوان الفيديو:
+{title}
+
+الرابط:
+https://www.youtube.com/watch?v={video_id}
+
+❗ أعد النتيجة بصيغة JSON فقط بدون أي شرح إضافي:
+
 {{
   "ingredients": [
-    {{ "name": "...", "quantity": "...", "unit": "..." }}
+    {{ "name": "المكون", "quantity": "الكمية", "unit": "الوحدة" }}
   ],
   "steps": [
-    "خطوة 1",
-    "خطوة 2"
+    "الخطوة الأولى",
+    "الخطوة الثانية"
   ]
 }}
 """
 
 headers = {
-    "Authorization": f"Bearer {ACCESS_TOKEN}",
+    "Authorization": f"Bearer {access_token}",
     "Content-Type": "application/json"
 }
 
 body = {
     "contents": [
         {
-            "role": "user",
-            "parts": [{"text": prompt_text}]
+            "parts": [
+                {"text": prompt}
+            ]
         }
     ]
 }
@@ -104,36 +118,35 @@ try:
     gemini_text = gemini_data["candidates"][0]["content"]["parts"][0]["text"]
 except (KeyError, IndexError):
     print("❌ خطأ في استجابة Gemini")
-    print(json.dumps(gemini_data, indent=2, ensure_ascii=False))
-    exit()
+    print(gemini_data)
+    exit(1)
 
-# ===============================
-# تحويل JSON
-# ===============================
+# =========================
+# 4️⃣ تحويل JSON الناتج
+# =========================
+
 try:
-    recipe_data = json.loads(gemini_text)
+    recipe_ai = json.loads(gemini_text)
 except json.JSONDecodeError:
-    print("❌ Gemini لم تُرجع JSON صالح")
+    print("❌ Gemini لم يرجع JSON صالح")
     print(gemini_text)
-    exit()
+    exit(1)
 
-# ===============================
-# تحديث recipes.json
-# ===============================
-json_file = "recipes.json"
+# =========================
+# 5️⃣ تحديث recipes.json
+# =========================
 
-if os.path.exists(json_file):
-    with open(json_file, "r", encoding="utf-8") as f:
-        recipes = json.load(f)
-else:
-    recipes = []
+RECIPES_FILE = "recipes.json"
+
+with open(RECIPES_FILE, "r", encoding="utf-8") as f:
+    recipes = json.load(f)
 
 new_id = str(int(recipes[-1]["id"]) + 1) if recipes else "1"
 
 new_recipe = {
     "id": new_id,
     "title": title,
-    "description": f"وصفة مستخلصة من فيديو YouTube: {title}",
+    "description": f"وصفة مستخلصة تلقائيًا من فيديو YouTube",
     "image": thumbnail,
     "prepTime": 15,
     "cookTime": 30,
@@ -141,13 +154,13 @@ new_recipe = {
     "difficulty": 2,
     "category": "أطباق رئيسية",
     "youtubeUrl": f"https://www.youtube.com/watch?v={video_id}",
-    "ingredients": recipe_data.get("ingredients", []),
-    "steps": recipe_data.get("steps", [])
+    "ingredients": recipe_ai.get("ingredients", []),
+    "steps": recipe_ai.get("steps", [])
 }
 
 recipes.append(new_recipe)
 
-with open(json_file, "w", encoding="utf-8") as f:
+with open(RECIPES_FILE, "w", encoding="utf-8") as f:
     json.dump(recipes, f, ensure_ascii=False, indent=4)
 
-print("✅ تم تحديث recipes.json بنجاح!")
+print("✅ تم تحديث recipes.json بنجاح 🎉")
