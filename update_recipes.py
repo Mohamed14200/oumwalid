@@ -3,11 +3,10 @@ import json
 import requests
 
 # =============================
-# مفاتيح API من Secrets
+# مفاتيح API
 # =============================
-
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
-GEMINI_API_KEY = "AIzaSyBT1zuFacNaEXLBYjsay91U7ADzrWWNR54"
+GEMINI_API_KEY = "AIzaSyBT1zuFacNaEXLBYjsay91U7ADzrWWNR54"  # للتجريب فقط
 
 if not YOUTUBE_API_KEY or not GEMINI_API_KEY:
     print("❌ مفاتيح API غير موجودة")
@@ -18,7 +17,6 @@ CHANNEL_ID = "UCVXD2kNki3rfLMhF8uNIcBQ"
 
 # === URL YouTube API ===
 youtube_url = "https://www.googleapis.com/youtube/v3/search"
-
 youtube_params = {
     "key": YOUTUBE_API_KEY,
     "channelId": CHANNEL_ID,
@@ -73,11 +71,7 @@ gemini_headers = {
 }
 
 gemini_body = {
-    "contents": [
-        {
-            "parts": [{"text": prompt_text}]
-        }
-    ]
+    "contents": [{"parts": [{"text": prompt_text}]}]
 }
 
 gemini_response = requests.post(gemini_url, headers=gemini_headers, json=gemini_body)
@@ -93,14 +87,10 @@ except (KeyError, IndexError):
 
 # === تنظيف النص وتحويله إلى JSON ===
 try:
-    # إزالة أي فراغات أو أسطر غير مرغوب فيها
     gemini_text_clean = gemini_text.strip()
-
-    # أحيانًا Gemini يضع علامات اقتباس خاطئة أو يضيف نص قبل/بعد JSON
     start = gemini_text_clean.find("{")
     end = gemini_text_clean.rfind("}") + 1
     json_str = gemini_text_clean[start:end]
-
     recipe_data = json.loads(json_str)
 except json.JSONDecodeError:
     print("❌ Gemini لم يُرجع JSON صالح")
@@ -114,6 +104,8 @@ if os.path.exists(json_file):
         recipes = json.load(f)
 else:
     recipes = []
+
+print(f"📄 عدد الوصفات قبل الإضافة: {len(recipes)}")
 
 # === إنشاء ID جديد ===
 new_id = str(int(recipes[-1]["id"]) + 1) if recipes else "1"
@@ -141,3 +133,5 @@ with open(json_file, "w", encoding="utf-8") as f:
     json.dump(recipes, f, ensure_ascii=False, indent=4)
 
 print("✅ تم تحديث recipes.json بالوصفة الجديدة!")
+print(f"📄 عدد الوصفات بعد الإضافة: {len(recipes)}")
+صفة الجديدة!")
