@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadRecipes() {
     try {
         // Load from local file
-        const response = await fetch('https://mohamed14200.github.io/todolist/recipes.json');
+        const response = await fetch('https://mohamed14200.github.io/oumwalid/recipes.json');
         const defaultRecipes = await response.json();
         
         // Load user recipes from localStorage
@@ -302,4 +302,5 @@ function displayUserRecipes() {
             </div>
         </div>
     `).join('');
+
 }
