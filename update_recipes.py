@@ -13,14 +13,10 @@ if not YOUTUBE_API_KEY or not GEMINI_API_KEY:
     print("❌ مفاتيح API غير موجودة")
     exit()
 
-# =============================
-# بيانات قناة YouTube
-# =============================
+# === بيانات القناة ===
 CHANNEL_ID = "UCVXD2kNki3rfLMhF8uNIcBQ"
 
-# =============================
-# جلب آخر فيديو من YouTube
-# =============================
+# === URL YouTube API ===
 youtube_url = "https://www.googleapis.com/youtube/v3/search"
 
 youtube_params = {
@@ -32,10 +28,11 @@ youtube_params = {
     "type": "video"
 }
 
+# === جلب آخر فيديو ===
 response = requests.get(youtube_url, params=youtube_params)
 data = response.json()
 
-if "items" not in data or not data["items"]:
+if "items" not in data or len(data["items"]) == 0:
     print("❌ لم يتم العثور على فيديوهات")
     exit()
 
@@ -51,100 +48,96 @@ print("الرابط:", f"https://www.youtube.com/watch?v={video_id}")
 print("تاريخ النشر:", published_at)
 print("صورة مصغرة:", thumbnail)
 
-# =============================
-# طلب Gemini 2.0 Flash
-# =============================
-gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+# === طلب Gemini لتوليد المكونات والخطوات ===
+gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
-prompt = f"""
-استخرج وصفة طبخ من هذا الفيديو:
-
+prompt_text = f"""
+أريد منك استخراج وصفة طعام من هذا الفيديو:
 العنوان: {title}
 الرابط: https://www.youtube.com/watch?v={video_id}
 
-أعد النتيجة بصيغة JSON فقط وبدون شرح:
-
+رجاءً أعطني النتائج بصيغة JSON كما يلي:
 {{
   "ingredients": [
-    {{ "name": "المكون", "quantity": "الكمية", "unit": "الوحدة" }}
+    {{ "name": "...", "quantity": "...", "unit": "..." }}
   ],
   "steps": [
-    "الخطوة الأولى",
-    "الخطوة الثانية"
+    "خطوة 1"
   ]
 }}
 """
 
-headers = {
-    "Content-Type": "application/json",
-    "x-goog-api-key": GEMINI_API_KEY
+gemini_headers = {
+    "x-goog-api-key": GEMINI_API_KEY,
+    "Content-Type": "application/json"
 }
 
-body = {
+gemini_body = {
     "contents": [
         {
-            "parts": [
-                {"text": prompt}
-            ]
+            "parts": [{"text": prompt_text}]
         }
     ]
 }
 
-gemini_response = requests.post(gemini_url, headers=headers, json=body)
+gemini_response = requests.post(gemini_url, headers=gemini_headers, json=gemini_body)
 gemini_data = gemini_response.json()
 
-if "candidates" not in gemini_data:
+# === الحصول على النص الناتج ===
+try:
+    gemini_text = gemini_data["candidates"][0]["content"]["parts"][0]["text"]
+except (KeyError, IndexError):
     print("❌ خطأ في استجابة Gemini")
     print(gemini_data)
     exit()
 
-gemini_text = gemini_data["candidates"][0]["content"]["parts"][0]["text"]
-
-# =============================
-# تحويل النص إلى JSON
-# =============================
+# === تنظيف النص وتحويله إلى JSON ===
 try:
-    recipe_ai = json.loads(gemini_text)
+    # إزالة أي فراغات أو أسطر غير مرغوب فيها
+    gemini_text_clean = gemini_text.strip()
+
+    # أحيانًا Gemini يضع علامات اقتباس خاطئة أو يضيف نص قبل/بعد JSON
+    start = gemini_text_clean.find("{")
+    end = gemini_text_clean.rfind("}") + 1
+    json_str = gemini_text_clean[start:end]
+
+    recipe_data = json.loads(json_str)
 except json.JSONDecodeError:
     print("❌ Gemini لم يُرجع JSON صالح")
-    print(gemini_text)
+    print("النص:", gemini_text)
     exit()
 
-# =============================
-# تحديث ملف recipes.json
-# =============================
+# === تحميل ملف الوصفات الحالي ===
 json_file = "recipes.json"
+if os.path.exists(json_file):
+    with open(json_file, "r", encoding="utf-8") as f:
+        recipes = json.load(f)
+else:
+    recipes = []
 
-with open(json_file, "r", encoding="utf-8") as f:
-    recipes = json.load(f)
-
-existing_video_ids = [r.get("youtubeUrl") for r in recipes]
-video_url = f"https://www.youtube.com/watch?v={video_id}"
-
-if video_url in existing_video_ids:
-    print("⚠️ هذا الفيديو موجود مسبقًا")
-    exit()
-
+# === إنشاء ID جديد ===
 new_id = str(int(recipes[-1]["id"]) + 1) if recipes else "1"
 
+# === إضافة الوصفة الجديدة ===
 new_recipe = {
     "id": new_id,
     "title": title,
-    "description": f"وصفة مستخرجة تلقائيًا من فيديو YouTube",
+    "description": f"وصفة مستخلصة من فيديو YouTube: {title}",
     "image": thumbnail,
     "prepTime": 15,
     "cookTime": 30,
     "servings": 4,
     "difficulty": 2,
-    "category": "وصفات",
-    "youtubeUrl": video_url,
-    "ingredients": recipe_ai.get("ingredients", []),
-    "steps": recipe_ai.get("steps", [])
+    "category": "أطباق رئيسية",
+    "youtubeUrl": f"https://www.youtube.com/watch?v={video_id}",
+    "ingredients": recipe_data.get("ingredients", []),
+    "steps": recipe_data.get("steps", [])
 }
 
 recipes.append(new_recipe)
 
+# === حفظ الملف ===
 with open(json_file, "w", encoding="utf-8") as f:
     json.dump(recipes, f, ensure_ascii=False, indent=4)
 
-print("✅ تم تحديث recipes.json بنجاح 🎉")
+print("✅ تم تحديث recipes.json بالوصفة الجديدة!")
