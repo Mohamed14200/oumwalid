@@ -7,7 +7,7 @@ import requests
 # =============================
 
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY")
-GEMINI_API_KEY = "AIzaSyBVQksYUKUnre3Fw13MeI9d0eAD3gdvBHE"
+GEMINI_API_KEY = "AIzaSyBT1zuFacNaEXLBYjsay91U7ADzrWWNR54"
 
 if not YOUTUBE_API_KEY or not GEMINI_API_KEY:
     print("❌ مفاتيح API غير موجودة")
