@@ -28,7 +28,7 @@ async function loadRecipeDetail() {
     
     try {
         // Load recipes from local file
-        const response = await fetch('https://mohamed14200.github.io/todolist/recipes.json');
+        const response = await fetch('https://mohamed14200.github.io/oumwalid/recipes.json');
         if (!response.ok) {
             throw new Error('Failed to fetch recipes');
         }
