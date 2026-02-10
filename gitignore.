@@ -1,0 +1,39 @@
+# ==============================
+# Git ignore for OumWalid Recipes
+# ==============================
+
+# Gemini Service Account
+gemini-service-account.json
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environment folders
+venv/
+env/
+ENV/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs
+*.log
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
