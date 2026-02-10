@@ -21,3 +21,5 @@ jobs:
 
       - name: Run update_recipes script
         run: python update_recipes.py
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
