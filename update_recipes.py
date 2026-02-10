@@ -29,7 +29,6 @@ youtube_params = {
 # === جلب آخر فيديو ===
 response = requests.get(youtube_url, params=youtube_params)
 data = response.json()
-
 if "items" not in data or len(data["items"]) == 0:
     print("❌ لم يتم العثور على فيديوهات")
     exit()
@@ -46,9 +45,8 @@ print("الرابط:", f"https://www.youtube.com/watch?v={video_id}")
 print("تاريخ النشر:", published_at)
 print("صورة مصغرة:", thumbnail)
 
-# === طلب Gemini لتوليد المكونات والخطوات ===
+# === طلب Gemini لتوليد الوصفة ===
 gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
-
 prompt_text = f"""
 أريد منك استخراج وصفة طعام من هذا الفيديو:
 العنوان: {title}
@@ -56,28 +54,18 @@ prompt_text = f"""
 
 رجاءً أعطني النتائج بصيغة JSON كما يلي:
 {{
-  "ingredients": [
-    {{ "name": "...", "quantity": "...", "unit": "..." }}
-  ],
-  "steps": [
-    "خطوة 1"
-  ]
+  "ingredients": [{{ "name": "...", "quantity": "...", "unit": "..." }}],
+  "steps": ["خطوة 1"]
 }}
 """
-
 gemini_headers = {
     "x-goog-api-key": GEMINI_API_KEY,
     "Content-Type": "application/json"
 }
-
-gemini_body = {
-    "contents": [{"parts": [{"text": prompt_text}]}]
-}
-
+gemini_body = {"contents": [{"parts": [{"text": prompt_text}]}]}
 gemini_response = requests.post(gemini_url, headers=gemini_headers, json=gemini_body)
 gemini_data = gemini_response.json()
 
-# === الحصول على النص الناتج ===
 try:
     gemini_text = gemini_data["candidates"][0]["content"]["parts"][0]["text"]
 except (KeyError, IndexError):
@@ -85,12 +73,10 @@ except (KeyError, IndexError):
     print(gemini_data)
     exit()
 
-# === تنظيف النص وتحويله إلى JSON ===
 try:
-    gemini_text_clean = gemini_text.strip()
-    start = gemini_text_clean.find("{")
-    end = gemini_text_clean.rfind("}") + 1
-    json_str = gemini_text_clean[start:end]
+    start = gemini_text.find("{")
+    end = gemini_text.rfind("}") + 1
+    json_str = gemini_text[start:end]
     recipe_data = json.loads(json_str)
 except json.JSONDecodeError:
     print("❌ Gemini لم يُرجع JSON صالح")
@@ -125,12 +111,17 @@ new_recipe = {
     "ingredients": recipe_data.get("ingredients", []),
     "steps": recipe_data.get("steps", [])
 }
-
 recipes.append(new_recipe)
 
 # === حفظ الملف ===
 with open(json_file, "w", encoding="utf-8") as f:
     json.dump(recipes, f, ensure_ascii=False, indent=4)
 
-print("✅ تم تحديث recipes.json بالوصفة الجديدة!")
-print(f"📄 عدد الوصفات بعد الإضافة: {len(recipes)}")
+print(f"✅ تم تحديث recipes.json بالوصفة الجديدة! عدد الوصفات الآن: {len(recipes)}")
+
+# === خطوة Git: commit + push تلقائي ===
+os.system("git config --global user.email 'cherif14200@gmail.com'")
+os.system("git config --global user.name 'Mohamed14200'")
+os.system("git add recipes.json")
+os.system(f"git commit -m 'Add recipe {new_id}: {title}'")
+os.system("git push origin main")  # أو الفرع الخاص بك
