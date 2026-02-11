@@ -1,5 +1,9 @@
 name: Update Recipes
 
+# إعطاء صلاحيات كتابة على محتوى المستودع
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   schedule:
@@ -26,10 +30,12 @@ jobs:
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # لا تحتاج GITHUB_TOKEN هنا، سيستخدمه الخطوة التالية تلقائيًا
         run: python update_recipes.py
 
       - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -37,4 +43,3 @@ jobs:
           git add recipes.json
           git commit -m "🤖 تحديث تلقائي للوصفات" || echo "No changes to commit"
           git push
-
