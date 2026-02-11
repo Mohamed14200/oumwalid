@@ -46,6 +46,10 @@ published_at = video["snippet"]["publishedAt"]
 thumbnail = video["snippet"]["thumbnails"]["high"]["url"]
 
 print("✅ آخر فيديو:", title)
+print("ENV CHECK:",
+      bool(os.environ.get("YOUTUBE_API_KEY")),
+      bool(os.environ.get("GEMINI_API_KEY")),
+      bool(os.environ.get("GITHUB_TOKEN")))
 
 # =============================
 # استخراج Transcript
